@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MiniNotificationSystem.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<MiniNotificationSystemContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MiniNotificationSystemContext") ?? throw new InvalidOperationException("Connection string 'MiniNotificationSystemContext' not found.")));
 
 var app = builder.Build();
 
